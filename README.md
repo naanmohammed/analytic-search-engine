@@ -2,7 +2,7 @@
 
 ## Overview
 
-Analytic Search Engine is a Rails application that captures and analyzes search queries grouped by IP addresses within a 60-second window. The application allows tracking searches, grouping them based on similarity, and displaying analytics.
+Analytic Search Engine is a Rails application that captures and analyzes search queries grouped by IP addresses. The application allows tracking searches, grouping them based on similarity, and displaying analytics.
 
 - [Live Link](https://naanmohammed.github.io/analytic-search-engine-frontend/)
 
