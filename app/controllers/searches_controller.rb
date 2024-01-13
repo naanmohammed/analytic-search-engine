@@ -5,6 +5,7 @@ class SearchesController < ApplicationController
 
   def index
     @searches = Search.all
+    { message: "ok" }
   end
 
   def create
@@ -15,14 +16,13 @@ class SearchesController < ApplicationController
 
     if @search.save
       @ip.increment!(:search_count)
-      redirect_to root_path
+      render json: { message: "ok" }
     else  
       render :new, status: :unprocessable_entity
     end
   end
 
   def show
-    # @ip = IpAddress.find(params[:id])
     @ip = IpAddress.find_by(address: params[:ip_address])
     @searches = @ip.searches
 
@@ -30,10 +30,24 @@ class SearchesController < ApplicationController
 
     @searches_grouped = grouped_searches.map do |group|
       most_complete_query = find_most_complete_query(group)
-      {
-        query: most_complete_query,
-        search_count: group.count
-      } if most_complete_query
+      
+      if most_complete_query
+        last_search = group.last
+        previous_search = group[-2]
+        if last_search && previous_search 
+          if last_search.created_at - previous_search.created_at > 60.seconds
+            search_count = group.count  
+          else
+            search_count = group.count - 1
+          end
+        else
+          search_count = group.count  
+        end
+        {
+          query: most_complete_query,
+          search_count: search_count
+        } if most_complete_query
+      end
     end.compact
 
     render json: {
@@ -92,8 +106,8 @@ def group_searches(searches)
   groups = []
 
   valid_searches = searches.select { |search| search.query.length >= 2 }
-  valid_searches.each do |search|
 
+  valid_searches.each do |search|
     group = groups.find { |g| 
       g.any? { |s| calculate_similarity(s.query, search.query) > 0.35 }
     }
