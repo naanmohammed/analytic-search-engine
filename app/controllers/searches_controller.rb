@@ -36,6 +36,7 @@ class SearchesController < ApplicationController
     end.compact
 
     render json: {
+      ip_id: @ip.id
       ip: @ip.address,
       searches: @searches_grouped
     }
