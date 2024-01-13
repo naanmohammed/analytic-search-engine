@@ -18,6 +18,8 @@ gem 'rack-cors'
 
 gem 'text'
 
+gem 'rspec-rails', '~> 5.0.0'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -42,6 +44,9 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'factory_bot_rails'
 end
 
 group :development do
