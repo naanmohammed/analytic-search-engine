@@ -21,6 +21,7 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
 
+RUN chmod -R a+rx ./bin
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
