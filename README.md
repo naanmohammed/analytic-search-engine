@@ -49,6 +49,7 @@ The application provides endpoints to capture and analyze search queries. It als
 ## Frontend
 
 The application includes a frontend with a real-time search feature. Users can type queries, view search results, and access analytics for IP addresses.
+- [Link](https://github.com/naanmohammed/analytic-search-engine-frontend))
 
 ## Dependencies
 
