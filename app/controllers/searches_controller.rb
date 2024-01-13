@@ -22,7 +22,8 @@ class SearchesController < ApplicationController
   end
 
   def show
-    @ip = IpAddress.find(params[:id])
+    # @ip = IpAddress.find(params[:id])
+    @ip = IpAddress.find_by(address: params[:ip_address])
     @searches = @ip.searches
 
     grouped_searches = group_searches(@searches)

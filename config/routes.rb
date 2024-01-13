@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :searches, only: [:index, :create, :show]
+  resources :searches, only: [:index, :create]
+  get 'searches/:ip_address', to: 'searches#show', constraints: {ip_address: /.*/}
   get '/ip', to: 'searches#ip', as: 'search_ip'
   root to: 'searches#index'
 
